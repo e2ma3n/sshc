@@ -1,0 +1,11 @@
+# Dont change this form
+# Programming and idea by : E2MA3N [Iman Homayouni]
+# Email : e2ma3n@Gmail.com
+# Website : http://OSLearn.ir
+# License : GPL v3.0
+# sshc v2.0
+#-------------------------------------#
+# Username IP_Address Port Password
+# example:
+root 192.168.1.1 22 password
+#-------------------------------------#

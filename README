@@ -1,0 +1,33 @@
+Programming and idea by : E2MA3N [Iman Homayouni] 
+Email : e2ma3n@Gmail.com
+Website : http://OSLearn.ir
+License : GPL v3.0
+sshc v3.0 - README [SSH Management Console]
+
+
+Dependencies:
+	1. sshpass
+	2. mkdir
+	3. cp
+	4. rm
+	5. whoami
+	6. ping
+	7. exit
+	8. ssh
+	9. echo
+	10. cat
+
+Install sshc v2.0:
+	1. chmod +x install.sh
+	2. sudo ./install.sh -i
+
+Usage sshc v2.0:
+	1. edit /etc/sshc/sshc.database
+	2. sudo sshc
+
+Uninstall sshc v2.0:
+	1. chmod +x install.sh
+	2. sudo ./install -u
+
+Notes:
+	1. run this program just using root user or sudo
