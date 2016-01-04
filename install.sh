@@ -3,7 +3,7 @@
 # Email : e2ma3n@Gmail.com
 # Website : http://OSLearn.ir
 # License : GPL v3.0
-# sshc v2.0 - installer [SSH Management Console]
+# sshc v3.0 - installer [SSH Management Console]
 #--------------------------------------------------------#
 
 # check root privilege
@@ -21,13 +21,13 @@ if [ -f /usr/bin/sshc ] ; then
 	exit 1
 fi
 
-if [ ! -d /etc/sshc/ ] ; then
-	mkdir /etc/sshc
-fi
-
-if [ -f /etc/sshc/sshc.database ] ; then
-	echo -e "[-] Error: /etc/sshc/sshc.database exist"
+if [ -f /etc/sshc/sshc.database.en ] ; then
+	echo -e "[-] Error: /etc/sshc/sshc.database.en exist"
 	exit 1
+else
+	if [ ! -d /etc/sshc/ ] ; then
+	mkdir /etc/sshc
+	fi
 fi
 }
 
@@ -36,10 +36,11 @@ function install {
 check1
 check2
 cp sshc /usr/bin/sshc
-cp sshc.database /etc/sshc
-chown root:root /etc/sshc/sshc.database
-chmod 700 /etc/sshc/sshc.database
-echo -e "[!] Warning: Edit /etc/sshc/sshc.database and put your server informations."
+cp sshc.database.en /etc/sshc/
+chown root:root /etc/sshc/sshc.database.en
+chmod 700 /etc/sshc/sshc.database.en
+echo -e "[!] Warning: run program and edit your database."
+echo -e "[!] Warning: defaul password is 'sshc'"
 echo -e "[+] Done"
 }
 
@@ -54,10 +55,10 @@ else
 	rm -f /usr/bin/sshc
 fi
 
-if [ ! -f /etc/sshc/sshc.database ] ; then
-	echo -e "[-] Error: /etc/sshc/sshc.database not found"
+if [ ! -f /etc/sshc/sshc.database.en ] ; then
+	echo -e "[-] Error: /etc/sshc/sshc.database.en not found"
 else
-	rm -f /etc/sshc/sshc.database
+	rm -f /etc/sshc/sshc.database.en
 fi
 
 if [ ! -d /etc/sshc/ ] ; then
@@ -68,15 +69,32 @@ fi
 echo -e "[+] Done"
 }
 
+# check dependencies on system
+function status {
+	echo '[+] ------------------------------------------------ [+]'
+	echo "[+] check dependencies on system:  "
+	for program in openssl sshpass mkdir cp rm whoami ping curl ssh echo cat joe
+	do
+		if [ ! -z `which $program` ] ; then
+			echo -e "[+] $program found"
+		else
+			echo -e "[-] Error: $program not found"
+		fi
+	done
+	echo '[+] ------------------------------------------------ [+]'
+}
+
 # help function
 function usage {
 echo "Usage: "
-echo "	sudo ./install.sh -i [for install program]"
-echo "	sudo ./install.sh -u [for uninstall program]"
+echo "	sudo $0 -i [for install program]"
+echo "	sudo $0 -u [for uninstall program]"
+echo "	sudo $0 -c [check dependencies on system]"
 }
 
 case $1 in
 	-i) install ;;
 	-u) uninstall ;;
+	-c) status ;;
 	*) usage ;;
 esac
