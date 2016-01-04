@@ -7,7 +7,7 @@ sshc v3.0 - README [SSH Management Console]
 
 
 Dependencies:
-	0. openssh
+	0. openssl
 	1. sshpass
 	2. mkdir
 	3. cp
