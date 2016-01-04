@@ -3,31 +3,34 @@ Email : e2ma3n@Gmail.com
 Website : http://OSLearn.ir
 License : GPL v3.0
 sshc v3.0 - README [SSH Management Console]
+#--------------------------------------------------------#
 
 
 Dependencies:
+	0. openssh
 	1. sshpass
 	2. mkdir
 	3. cp
 	4. rm
 	5. whoami
 	6. ping
-	7. exit
+	7. curl
 	8. ssh
 	9. echo
 	10. cat
+	11. joe
 
-Install sshc v2.0:
-	1. chmod +x install.sh
-	2. sudo ./install.sh -i
+Install sshc v3.0:
+	0. chmod +x install.sh
+	1. sudo ./install.sh -i
 
-Usage sshc v2.0:
-	1. edit /etc/sshc/sshc.database
-	2. sudo sshc
+Usage sshc v3.0:
+	0. run program and edit your database
+	1. run program and connect to your servers
 
-Uninstall sshc v2.0:
+Uninstall sshc v3.0:
 	1. chmod +x install.sh
 	2. sudo ./install -u
 
 Notes:
-	1. run this program just using root user or sudo
+	0. run this program just using root user or sudo
