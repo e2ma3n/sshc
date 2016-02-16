@@ -46,6 +46,7 @@ Uninstall sshc v4.0 :
 
 Tested sshc on :
 	0. LMDE2 mate desktop - 3.16.0-4-amd64
+	1. chromixium 1.5 - 3.13.0-66-generic
 
 Notes:
 	0. run this program just using root user or sudo
