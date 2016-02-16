@@ -56,5 +56,5 @@ function check_f {
 case $1 in
 	-i) install_f ;;
 	-c) check_f ;;
-	*) usage ;;
+	*) help_f ;;
 esac
