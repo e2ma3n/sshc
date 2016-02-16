@@ -1,100 +1,60 @@
 #! /bin/bash
 # Programming and idea by : E2MA3N [Iman Homayouni]
+# Gitbub : https://github.com/e2ma3n
 # Email : e2ma3n@Gmail.com
 # Website : http://OSLearn.ir
 # License : GPL v3.0
-# sshc v3.0 - installer [SSH Management Console]
+# sshc v4.0 - installer [SSH Management Console]
 #--------------------------------------------------------#
 
 # check root privilege
-function check1 {
-if [ "`whoami`" != "root" ]; then
-        echo -e '[-] Please use root user or sudo'
-        exit 1
-fi
+[ "`whoami`" != "root" ] && echo -e '[-] Please use root user or sudo' && exit 1
+
+
+# help function
+function help_f {
+	echo "Usage: "
+	echo "	sudo ./install.sh -i [install program]"
+	echo "	sudo ./install.sh -c [check dependencies]"
 }
 
-# check config files for installation function
-function check2 {
-if [ -f /usr/bin/sshc ] ; then
-	echo -e "[-] Error: /usr/bin/sshc exist"
-	exit 1
-fi
 
-if [ -f /etc/sshc/sshc.database.en ] ; then
-	echo -e "[-] Error: /etc/sshc/sshc.database.en exist"
-	exit 1
-else
-	if [ ! -d /etc/sshc/ ] ; then
-	mkdir /etc/sshc
-	fi
-fi
+# install program on system
+function install_f {
+	[ ! -d /opt/sshc_v4/ ] && mkdir -p /opt/sshc_v4/ && echo "[+] Directory created" || echo "[-] Error: /opt/sshc_v4/ exist"
+	sleep 1
+	[ ! -f /opt/sshc_v4/sshc.sh ] && cp sshc.sh /opt/sshc_v4/ && chmod 755 /opt/sshc_v4/sshc.sh && echo "[+] sshc.sh copied" || echo "[-] Error: /opt/sshc_v4/sshc.sh exist"
+	sleep 1
+	[ ! -f /opt/sshc_v4/sshc.database.en ] && cp sshc.database.en /opt/sshc_v4/sshc.database.en && chown root:root /opt/sshc_v4/sshc.database.en && chmod 700 /opt/sshc_v4/sshc.database.en && echo "[+] sshc.database.en copied" || echo "[-] Error: /opt/sshc_v4/sshc.database.en exist"
+	sleep 1
+	[ -f /opt/sshc_v4/sshc.sh ] && ln -s /opt/sshc_v4/sshc.sh /usr/bin/sshc && echo "[+] symbolic link created" || echo "[-] Error: symbolic link not created"
+	sleep 1
+	[ ! -f /opt/sshc_v4/README ] && cp README /opt/sshc_v4/README && chmod 644 /opt/sshc_v4/README && echo "[+] README copied" || echo "[-] Error: /opt/sshc_v4/README exist"
+	sleep 1
+
+	echo "[+] Please see README"
+	echo "[!] Warning: run program and edit your database."
+	echo "[!] Warning: defaul password is 'sshc'"
+	echo "[+] Done"
 }
 
-# install program clearly
-function install {
-check1
-check2
-cp sshc /usr/bin/sshc
-cp sshc.database.en /etc/sshc/
-chown root:root /etc/sshc/sshc.database.en
-chmod 700 /etc/sshc/sshc.database.en
-echo -e "[!] Warning: run program and edit your database."
-echo -e "[!] Warning: defaul password is 'sshc'"
-echo -e "[+] Done"
-}
-
-# uninstal program clearly
-function uninstall {
-check1
-echo -en "[!] Warning: Do you want to continue ? (press enter to continue or ctrl+c for exit)" ; read
-
-if [ ! -f /usr/bin/sshc ] ; then
-	echo -e "[-] Error: /usr/bin/sshc not found"
-else
-	rm -f /usr/bin/sshc
-fi
-
-if [ ! -f /etc/sshc/sshc.database.en ] ; then
-	echo -e "[-] Error: /etc/sshc/sshc.database.en not found"
-else
-	rm -f /etc/sshc/sshc.database.en
-fi
-
-if [ ! -d /etc/sshc/ ] ; then
-	echo -e "[-] Error: /etc/sshc/ not found"
-else
-	rm -rf /etc/sshc/
-fi
-echo -e "[+] Done"
-}
 
 # check dependencies on system
-function status {
-	echo '[+] ------------------------------------------------ [+]'
+function check_f {
 	echo "[+] check dependencies on system:  "
-	for program in openssl sshpass mkdir cp rm whoami ping curl ssh echo cat joe
+	for program in whoami sleep cat head tail cut expr curl nano openssl sshpass
 	do
-		if [ ! -z `which $program` ] ; then
+		if [ ! -z `which $program 2> /dev/null` ] ; then
 			echo -e "[+] $program found"
 		else
 			echo -e "[-] Error: $program not found"
 		fi
 	done
-	echo '[+] ------------------------------------------------ [+]'
 }
 
-# help function
-function usage {
-echo "Usage: "
-echo "	sudo $0 -i [for install program]"
-echo "	sudo $0 -u [for uninstall program]"
-echo "	sudo $0 -c [check dependencies on system]"
-}
 
 case $1 in
-	-i) install ;;
-	-u) uninstall ;;
-	-c) status ;;
+	-i) install_f ;;
+	-c) check_f ;;
 	*) usage ;;
 esac
