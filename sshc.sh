@@ -4,7 +4,7 @@
 # Email : e2ma3n@Gmail.com
 # Website : http://OSLearn.ir
 # License : GPL v3.0
-# sshc v4.0 - core [SSH Management Console]
+# sshc v5.0 - core [SSH Management Console]
 #--------------------------------------------------------#
 
 # check root privilege
@@ -12,7 +12,7 @@
 
 
 # data base location , Don not change this form
-database_en="/opt/sshc_v4/sshc.database.en"
+database_en="/opt/sshc_v5/sshc.database.en"
 
 
 # print header on terminal
@@ -20,7 +20,7 @@ reset
 echo '[+] ------------------------------------------------------------------- [+]'
 echo -e "[+] Programming and idea by : \e[1mE2MA3N [Iman Homayouni]\e[0m"
 echo '[+] License : GPL v3.0'
-echo -e '[+] sshc v4.0 \n'
+echo -e '[+] sshc v5.0 \n'
 
 
 # check encrypted database
@@ -44,21 +44,21 @@ fi
 
 
 # print servers informations on terminal
-echo -e "\n 0) Edite Database"
+echo -e "\n 0) Edit Database"
 var0=`echo "$database_de" | wc -l`
 var0=`expr $var0 - 12`
 for (( i=1 ; i <= $var0 ; i++ )) ; do
-	echo -ne " $i) " ; echo "$database_de" | tail -n $i | head -n 1 | cut -d " " -f 1,2 | tr " " @
+	echo -ne " $i) " ; echo "$database_de" | tail -n $i | head -n 1 | cut -d " " -f 1,3 | tr " " @
 done
 
 
 # edite database
 function edit_db {
-	echo "$database_de" > /opt/sshc_v4/sshc.database.de
-	nano /opt/sshc_v4/sshc.database.de
+	echo "$database_de" > /opt/sshc_v5/sshc.database.de
+	nano /opt/sshc_v5/sshc.database.de
 	echo -en "[+] encrypt new database, Please type your password: " ; read -s pass
-	openssl aes-256-cbc -pass pass:$pass -a -salt -in /opt/sshc_v4/sshc.database.de -out $database_en
-	rm -f /opt/sshc_v4/sshc.database.de &> /dev/null
+	openssl aes-256-cbc -pass pass:$pass -a -salt -in /opt/sshc_v5/sshc.database.de -out $database_en
+	rm -f /opt/sshc_v5/sshc.database.de &> /dev/null
 	echo -e "\n[+] Done, New database saved and encrypted"
 	echo '[+] ------------------------------------------------------------------- [+]'
 	exit 0
@@ -76,7 +76,7 @@ while :; do
 	if [ "$var1" -le "$var0" ] 2> /dev/null ; then
 		break
 	elif [ "$var1" = "quit" ] ; then
-		echo "[+] Bye Bye"
+		echo "[+] Done"
 		echo '[+] ------------------------------------------------------------------- [+]'
 		exit 1
 	else
@@ -87,12 +87,24 @@ while :; do
 done
 
 
-# connect to server
+username=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 1`
+local_proxy_port=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 2`
+ip_address=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 3`
+remote_proxy_port=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 4`
+ssh_port=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 5`
+password=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 6`
+
+
+# connect to server - tunnel mode
+function function_0 {
+	echo -e "[+] \e[93mLocal Tunnel IP: 127.0.0.1 \e[0m"
+	echo -e "[+] \e[93mLocal Tunnel Port: $local_proxy_port \e[0m"
+	echo '[+] ------------------------------------------------------------------- [+]'
+	sshpass -p "$password" ssh -o StrictHostKeyChecking=no -l $username -L $local_proxy_port\:127.0.0.1:$remote_proxy_port $ip_address -p $ssh_port
+}
+
+# connect to server - normal mode
 function function_1 {
-	password=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 4`
-	username=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 1`
-	ip_address=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 2`
-	ssh_port=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 3`
 	echo '[+] ------------------------------------------------------------------- [+]'
 	sshpass -p "$password" ssh -o StrictHostKeyChecking=no -l $username $ip_address -p $ssh_port
 }
@@ -105,11 +117,6 @@ function function_2 {
 		echo '[+] ------------------------------------------------------------------- [+]'
 		exit 1
 	fi
-	
-	password=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 4`
-	username=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 1`
-	ssh_port=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 3`
-	ip_address=`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 2`
 	
 	for (( i=1 ; i < 4 ; i++ )) ; do
 		public_ip=`curl ipecho.net/plain 2> /dev/null`
@@ -139,25 +146,31 @@ function function_2 {
 
 
 # status, checking up or down 
-ping -c 1 `echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 2` &> /dev/null
+ping -c 1 `echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 3` &> /dev/null
 if [ "$?" = "0" ] ; then
-	echo -ne "\n You selected: \e[92m" ; echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 2 
+	echo -ne "\n You selected: \e[92m" ; echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 3 
 else
-	echo -ne "\n You selected: \e[91m" ; echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 2
+	echo -ne "\n You selected: \e[91m" ; echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 3
 fi
 
-
+echo
 if [ "`echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 1`" != "root" ] ; then
-	echo -e "\e[0m 1) Connect to server"
+	echo -e "\e[0m 0) Connect to server (Tunnel mode)"
+	echo -e " 1) Connect to server (Normal mode)"
 else
-	echo -e "\e[0m 1) Connect to server"
-	echo -e " 2) Open your public IP address in server (Firewall)"
-	echo -e " 3) Both"	
+	echo -e "\e[0m 0) Connect to server [Tunnel mode]"
+	echo -e " 1) Connect to server [Normal mode]"
+	echo -e " 2) Open your public IP address in server [Firewall]"
+	echo -e " 3) \e[7moption 0 and option 2\e[0m"
+	echo -e " 4) \e[7moption 1 and option 2\e[0m"
 fi
 
 echo -en "\n[+] Select your option or type quit for exit: " ; read var2
 
 case $var2 in
+	0) function_0
+		exit 0 ;;
+
 	1) function_1
 		exit 0 ;;
 
@@ -167,9 +180,13 @@ case $var2 in
 
 	3) function_2
 		echo "[+] Done"
-		function_1 ;;
+		function_0 ;;
+
+	4) function_2
+		echo "[+] Done"
+		function_1 ;;		
 	
-	quit) echo "[+] Bye Bye"
+	quit) echo "[+] Done"
 			echo '[+] ------------------------------------------------------------------- [+]'
 			exit 0 ;;
 	
