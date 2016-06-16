@@ -54,6 +54,9 @@ done
 
 # edite database
 function edit_db {
+	touch /opt/sshc_v5/sshc.database.de
+ 	chown root:root /opt/sshc_v5/sshc.database.de
+ 	chmod 600 /opt/sshc_v5/sshc.database.de
 	echo "$database_de" > /opt/sshc_v5/sshc.database.de
 	nano /opt/sshc_v5/sshc.database.de
 	echo -en "[+] encrypt new database, Please type your password: " ; read -s pass
