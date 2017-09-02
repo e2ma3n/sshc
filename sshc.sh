@@ -3,8 +3,8 @@
 # Gitbub : https://github.com/e2ma3n
 # Email : e2ma3n@Gmail.com
 # Website : http://OSLearn.ir
-# License : GPL v3.0
-# sshc v5.0 - core [SSH Management Console]
+# License : GPL v2.0
+# sshc v6.0 - core [SSH Management Console]
 #--------------------------------------------------------#
 
 # check root privilege
@@ -12,15 +12,15 @@
 
 
 # data base location , Don not change this form
-database_en="/opt/sshc_v5/sshc.database.en"
+database_en="/opt/sshc_v6/sshc.database.en"
 
 
 # print header on terminal
 reset
 echo '[+] ------------------------------------------------------------------- [+]'
 echo -e "[+] Programming and idea by : \e[1mE2MA3N [Iman Homayouni]\e[0m"
-echo '[+] License : GPL v3.0'
-echo -e '[+] sshc v5.0 \n'
+echo '[+] License : GPL v2.0'
+echo -e '[+] sshc v6.0 \n'
 
 
 # check encrypted database
@@ -33,7 +33,7 @@ fi
 
 # decrypt database
 echo -en "[+] Enter password: " ; read -s pass
-database_de=`openssl aes-256-cbc -pass pass:$pass -d -a -in $database_en 2> /dev/null`
+database_de=`openssl aes-256-cbc -md md5 -pass pass:$pass -d -a -in $database_en 2> /dev/null | tr -d '\000' 2> /dev/null`
 if [ "$?" != "0" ] ; then
 	echo -e "\n[-] Error: Database can not decrypted."
 	echo '[+] ------------------------------------------------------------------- [+]'
@@ -54,14 +54,14 @@ done
 
 # edite database
 function edit_db {
-	touch /opt/sshc_v5/sshc.database.de
- 	chown root:root /opt/sshc_v5/sshc.database.de
- 	chmod 600 /opt/sshc_v5/sshc.database.de
-	echo "$database_de" > /opt/sshc_v5/sshc.database.de
-	nano /opt/sshc_v5/sshc.database.de
+	touch /opt/sshc_v6/sshc.database.de
+ 	chown root:root /opt/sshc_v6/sshc.database.de
+ 	chmod 600 /opt/sshc_v6/sshc.database.de
+	echo "$database_de" > /opt/sshc_v6/sshc.database.de
+	nano /opt/sshc_v6/sshc.database.de
 	echo -en "[+] encrypt new database, Please type your password: " ; read -s pass
-	openssl aes-256-cbc -pass pass:$pass -a -salt -in /opt/sshc_v5/sshc.database.de -out $database_en
-	rm -f /opt/sshc_v5/sshc.database.de &> /dev/null
+	openssl aes-256-cbc -pass pass:$pass -a -salt -in /opt/sshc_v6/sshc.database.de -out $database_en
+	rm -f /opt/sshc_v6/sshc.database.de &> /dev/null
 	echo -e "\n[+] Done, New database saved and encrypted"
 	echo '[+] ------------------------------------------------------------------- [+]'
 	exit 0
