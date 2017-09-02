@@ -34,6 +34,7 @@ fi
 # decrypt database
 echo -en "[+] Enter password: " ; read -s pass
 database_de=`openssl aes-256-cbc -md md5 -pass pass:$pass -d -a -in $database_en 2> /dev/null | tr -d '\000' 2> /dev/null`
+echo "$database_de" | grep 'Dont change this form' &> /dev/null
 if [ "$?" != "0" ] ; then
 	echo -e "\n[-] Error: Database can not decrypted."
 	echo '[+] ------------------------------------------------------------------- [+]'
