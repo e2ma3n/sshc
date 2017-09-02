@@ -30,10 +30,10 @@ function install_f {
 	sleep 1
 	[ -f /opt/sshc_v6/sshc.sh ] && ln -s /opt/sshc_v6/sshc.sh /usr/bin/sshc && echo "[+] symbolic link created" || echo "[-] Error: symbolic link not created"
 	sleep 1
-	[ ! -f /opt/sshc_v6/README ] && cp README /opt/sshc_v6/README && chmod 644 /opt/sshc_v6/README && echo "[+] README copied" || echo "[-] Error: /opt/sshc_v6/README exist"
+	[ ! -f /opt/sshc_v6/README.md ] && cp README.md /opt/sshc_v6/README.md && chmod 644 /opt/sshc_v6/README.md && echo "[+] README.md copied" || echo "[-] Error: /opt/sshc_v6/README.md exist"
 	sleep 1
 
-	echo "[+] Please see README"
+	echo "[+] Please see README.md"
 	sleep 0.5
 	echo "[!] Warning: run program and edit your database."
 	sleep 0.5
