@@ -5,7 +5,7 @@ when number of accesses to ssh gets high, managment gets hard, so in this time y
 The project page is located at https://github.com/e2ma3n/sshc
 
 ## What distributions are supported ?
-Tested on all popular linux distributions such as debian and CentOS
+All popular linux distributions such as debian and CentOS
 
 | Distribution | Version |
 | ---------- | ----------- |
@@ -14,7 +14,7 @@ Tested on all popular linux distributions such as debian and CentOS
 | Debian     | debian-7.5.0-amd64-netinst |
 | CentOS     | centos-6.3.0-amd64 |
 | CentOS     | centos-7.1.0-amd64 |
-| LMDE       | LMDE2 mate desktop - 3.16.0-4-amd64 |
+| LMDE       | lmde2 mate desktop - 3.16.0-4-amd64 |
 | Chromixium | chromixium 1.5 - 3.13.0-66-generic |
 
 
@@ -71,18 +71,17 @@ By using -i switch :
 ```
 
 ## How to uninstall ?
-First remove radic directory
 ```
 # rm -rf /opt/sshc_v6/
+# rm -f /usr/bin/sshc
 ```
-Then. delete /usr/bin/sshc
 
 
 ## Notes :
 	1. run this program just using root user or sudo
 	2. defaul password is 'sshc'
 	3. run program and edit your database
-	4. Special thanks to Mickael Dorigny from www.it-connect.fr for find new bug
+	4. Special thanks to Mickael Dorigny from www.it-connect.fr for finding new bug
 
 ## License
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
