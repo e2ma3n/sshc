@@ -3,8 +3,8 @@
 # Gitbub : https://github.com/e2ma3n
 # Email : e2ma3n@Gmail.com
 # Website : http://OSLearn.ir
-# License : GPL v3.0
-# sshc v5.0 - installer [SSH Management Console]
+# License : GPL v2.0
+# sshc v6.0 - installer [SSH Management Console]
 #--------------------------------------------------------#
 
 # check root privilege
@@ -22,15 +22,15 @@ function help_f {
 
 # install program on system
 function install_f {
-	[ ! -d /opt/sshc_v5/ ] && mkdir -p /opt/sshc_v5/ && echo "[+] Directory created" || echo "[-] Error: /opt/sshc_v5/ exist"
+	[ ! -d /opt/sshc_v6/ ] && mkdir -p /opt/sshc_v6/ && echo "[+] Directory created" || echo "[-] Error: /opt/sshc_v6/ exist"
 	sleep 1
-	[ ! -f /opt/sshc_v5/sshc.sh ] && cp sshc.sh /opt/sshc_v5/ && chmod 755 /opt/sshc_v5/sshc.sh && echo "[+] sshc.sh copied" || echo "[-] Error: /opt/sshc_v5/sshc.sh exist"
+	[ ! -f /opt/sshc_v6/sshc.sh ] && cp sshc.sh /opt/sshc_v6/ && chmod 755 /opt/sshc_v6/sshc.sh && echo "[+] sshc.sh copied" || echo "[-] Error: /opt/sshc_v6/sshc.sh exist"
 	sleep 1
-	[ ! -f /opt/sshc_v5/sshc.database.en ] && cp sshc.database.en /opt/sshc_v5/sshc.database.en && chown root:root /opt/sshc_v5/sshc.database.en && chmod 700 /opt/sshc_v5/sshc.database.en && echo "[+] sshc.database.en copied" || echo "[-] Error: /opt/sshc_v5/sshc.database.en exist"
+	[ ! -f /opt/sshc_v6/sshc.database.en ] && cp sshc.database.en /opt/sshc_v6/sshc.database.en && chown root:root /opt/sshc_v6/sshc.database.en && chmod 700 /opt/sshc_v6/sshc.database.en && echo "[+] sshc.database.en copied" || echo "[-] Error: /opt/sshc_v6/sshc.database.en exist"
 	sleep 1
-	[ -f /opt/sshc_v5/sshc.sh ] && ln -s /opt/sshc_v5/sshc.sh /usr/bin/sshc && echo "[+] symbolic link created" || echo "[-] Error: symbolic link not created"
+	[ -f /opt/sshc_v6/sshc.sh ] && ln -s /opt/sshc_v6/sshc.sh /usr/bin/sshc && echo "[+] symbolic link created" || echo "[-] Error: symbolic link not created"
 	sleep 1
-	[ ! -f /opt/sshc_v5/README ] && cp README /opt/sshc_v5/README && chmod 644 /opt/sshc_v5/README && echo "[+] README copied" || echo "[-] Error: /opt/sshc_v5/README exist"
+	[ ! -f /opt/sshc_v6/README ] && cp README /opt/sshc_v6/README && chmod 644 /opt/sshc_v6/README && echo "[+] README copied" || echo "[-] Error: /opt/sshc_v6/README exist"
 	sleep 1
 
 	echo "[+] Please see README"
@@ -46,7 +46,7 @@ function install_f {
 # uninstall program from system
 function uninstall_f {
 	echo 'For uninstall program:'
-	echo '	sudo rm -rf /opt/sshc_v5/'
+	echo '	sudo rm -rf /opt/sshc_v6/'
 	echo '	sudo rm -f /usr/bin/sshc'
 }
 
@@ -54,7 +54,7 @@ function uninstall_f {
 # check dependencies on system
 function check_f {
 	echo "[+] check dependencies on system:  "
-	for program in whoami sleep cat head tail cut expr curl nano openssl sshpass
+	for program in whoami sleep cat head tail cut expr curl nano openssl sshpass cp grep
 	do
 		if [ ! -z `which $program 2> /dev/null` ] ; then
 			echo -e "[+] $program found"
