@@ -11,9 +11,9 @@ All popular linux distributions such as debian and CentOS
 | ---------- | ----------- |
 | Debian     | debian-9.1.0-amd64-netinst |
 | Debian     | debian-8.9.0-amd64-netinst |
-| Debian     | debian-7.5.0-amd64-netinst |
-| CentOS     | centos-6.3.0-amd64 |
-| CentOS     | centos-7.1.0-amd64 |
+| Debian     | debian-7.11.0-amd64-netinst |
+| CentOS     | centos-6.6-amd64 |
+| CentOS     | centos-7-amd64 |
 | LMDE       | lmde2 mate desktop - 3.16.0-4-amd64 |
 | Chromixium | chromixium 1.5 - 3.13.0-66-generic |
 
