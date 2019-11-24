@@ -61,7 +61,7 @@ function edit_db {
 	echo "$database_de" > /opt/sshc_v6/sshc.database.de
 	nano /opt/sshc_v6/sshc.database.de
 	echo -en "[+] encrypt new database, Please type your password: " ; read -s pass
-	openssl aes-256-cbc -md md5 -pass pass:$pass -a -salt -in /opt/sshc_v6/sshc.database.de -out $database_en
+	openssl aes-256-cbc -md md5 -pass pass:$pass -a -salt -in /opt/sshc_v6/sshc.database.de -out $database_en 2> /dev/null
 	rm -f /opt/sshc_v6/sshc.database.de &> /dev/null
 	echo -e "\n[+] Done, New database saved and encrypted"
 	echo '[+] ------------------------------------------------------------------- [+]'
