@@ -4,6 +4,15 @@ when number of accesses to ssh gets high, managment gets hard, so in this time y
 
 The project page is located at https://github.com/e2ma3n/sshc
 
+## Why we should use sshc program ?
+
+- Because i hate to set all root password for 123456
+- Because i need to encrypt my password in my Gnu-Linux machine
+- Because i trust openssl and aes-256-cbc encryption algorithms
+- Because is easier to read couple line from shell script instead of third party binaries
+- etc
+
+
 ## What distributions are supported ?
 All popular linux distributions such as debian and CentOS
 
