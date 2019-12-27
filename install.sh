@@ -17,6 +17,7 @@ function help_f {
 	echo "	sudo ./install.sh -i [install program]"
 	echo '	sudo ./install.sh -u [help to uninstall program]'
 	echo "	sudo ./install.sh -c [check dependencies]"
+	echo "	sudo ./install.sh --update [update program for just sshc.sh]"
 }
 
 
@@ -51,6 +52,13 @@ function uninstall_f {
 }
 
 
+# update program
+function update_f {
+	cp sshc.sh /opt/sshc_v6/sshc.sh
+	["$?" = "0"] && echo "[+] sshc.sh updated"
+}
+
+
 # check dependencies on system
 function check_f {
 	echo "[+] check dependencies on system:  "
@@ -70,5 +78,6 @@ case $1 in
 	-i) install_f ;;
 	-c) check_f ;;
 	-u) uninstall_f ;;
+	--update) update_f ;;
 	*) help_f ;;
 esac
