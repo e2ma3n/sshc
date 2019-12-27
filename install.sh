@@ -55,7 +55,7 @@ function uninstall_f {
 # update program
 function update_f {
 	cp sshc.sh /opt/sshc_v6/sshc.sh
-	["$?" = "0"] && echo "[+] sshc.sh updated"
+	[ "$?" = "0" ] && echo "[+] sshc.sh updated"
 }
 
 
