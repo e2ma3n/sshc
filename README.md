@@ -81,7 +81,7 @@ By using -i switch :
 
 ## How to uninstall ?
 ```
-# rm -rf /opt/sshc_v6/
+# rm -rf /opt/sshc/
 # rm -f /usr/bin/sshc
 ```
 
