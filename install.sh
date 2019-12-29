@@ -2,13 +2,14 @@
 # Programming and idea by : E2MA3N [Iman Homayouni]
 # Gitbub : https://github.com/e2ma3n
 # Email : e2ma3n@Gmail.com
-# Website : http://OSLearn.ir
+# Website : http://www.homayouni.info
 # License : GPL v2.0
-# sshc v6.0 - installer [SSH Management Console]
+# Last update : 29-December-2019_14:21:57
+# sshc v7.0 - installer [SSH Management Console]
 #--------------------------------------------------------#
 
 # check root privilege
-[ "`whoami`" != "root" ] && echo -e '[-] Please use root user or sudo' && exit 1
+[ "$UID" != "0" ] && echo -e '[-] Please use root user or sudo' && exit 1
 
 
 # help function
@@ -23,15 +24,15 @@ function help_f {
 
 # install program on system
 function install_f {
-	[ ! -d /opt/sshc_v6/ ] && mkdir -p /opt/sshc_v6/ && echo "[+] Directory created" || echo "[-] Error: /opt/sshc_v6/ exist"
+	[ ! -d /opt/sshc/ ] && mkdir -p /opt/sshc/ && echo "[+] Directory created" || echo "[-] Error: /opt/sshc/ exist"
 	sleep 1
-	[ ! -f /opt/sshc_v6/sshc.sh ] && cp sshc.sh /opt/sshc_v6/ && chmod 755 /opt/sshc_v6/sshc.sh && echo "[+] sshc.sh copied" || echo "[-] Error: /opt/sshc_v6/sshc.sh exist"
+	[ ! -f /opt/sshc/sshc.sh ] && cp sshc.sh /opt/sshc/ && chmod 755 /opt/sshc/sshc.sh && echo "[+] sshc.sh copied" || echo "[-] Error: /opt/sshc/sshc.sh exist"
 	sleep 1
-	[ ! -f /opt/sshc_v6/sshc.database.en ] && cp sshc.database.en /opt/sshc_v6/sshc.database.en && chown root:root /opt/sshc_v6/sshc.database.en && chmod 700 /opt/sshc_v6/sshc.database.en && echo "[+] sshc.database.en copied" || echo "[-] Error: /opt/sshc_v6/sshc.database.en exist"
+	[ ! -f /opt/sshc/sshc.database.en ] && cp sshc.database.en /opt/sshc/sshc.database.en && chown root:root /opt/sshc/sshc.database.en && chmod 700 /opt/sshc/sshc.database.en && echo "[+] sshc.database.en copied" || echo "[-] Error: /opt/sshc/sshc.database.en exist"
 	sleep 1
-	[ -f /opt/sshc_v6/sshc.sh ] && ln -s /opt/sshc_v6/sshc.sh /usr/bin/sshc && echo "[+] symbolic link created" || echo "[-] Error: symbolic link not created"
+	[ -f /opt/sshc/sshc.sh ] && ln -s /opt/sshc/sshc.sh /usr/bin/sshc && echo "[+] symbolic link created" || echo "[-] Error: symbolic link not created"
 	sleep 1
-	[ ! -f /opt/sshc_v6/README.md ] && cp README.md /opt/sshc_v6/README.md && chmod 644 /opt/sshc_v6/README.md && echo "[+] README.md copied" || echo "[-] Error: /opt/sshc_v6/README.md exist"
+	[ ! -f /opt/sshc/README.md ] && cp README.md /opt/sshc/README.md && chmod 644 /opt/sshc/README.md && echo "[+] README.md copied" || echo "[-] Error: /opt/sshc/README.md exist"
 	sleep 1
 
 	echo "[+] Please see README.md"
@@ -47,14 +48,14 @@ function install_f {
 # uninstall program from system
 function uninstall_f {
 	echo 'For uninstall program:'
-	echo '	sudo rm -rf /opt/sshc_v6/'
+	echo '	sudo rm -rf /opt/sshc/'
 	echo '	sudo rm -f /usr/bin/sshc'
 }
 
 
 # update program
 function update_f {
-	cp sshc.sh /opt/sshc_v6/sshc.sh
+	cp sshc.sh /opt/sshc/sshc.sh
 	[ "$?" = "0" ] && echo "[+] sshc.sh updated"
 }
 
