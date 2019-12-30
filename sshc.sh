@@ -43,13 +43,13 @@ echo "$database_de" | grep 'Dont change this form' &> /dev/null
 
 
 # print servers informations on terminal
-echo -e "\n 0) Edit Database"
+echo -e "\n 0] Edit Database"
 var0=$(echo "$database_de" | wc -l)
 var0=$(expr $var0 - 12)
 for (( i=1 ; i <= $var0 ; i++ )) ; do
 	show_port=$(echo -en "$database_de" | tail -n $i | head -n 1 | cut -d " " -f 5)
 	user_ip=$(echo -en "$database_de" | tail -n $i | head -n 1 | cut -d " " -f 1,3 | tr " " @)
-	echo -ne " $i) " ; echo "$user_ip:$show_port"
+	echo -ne " $i] " ; echo "$user_ip:$show_port"
 done
 
 
@@ -156,10 +156,10 @@ fi
 
 echo
 if [ "$(echo "$database_de" | tail -n $var1 | head -n 1 | cut -d " " -f 1)" != "root" ] ; then
-	echo -e "\e[0m 0) Connect to server (Tunnel mode)"
+	echo -e "\e[0m 0] Connect to server (Tunnel mode)"
 	echo -e " 1] Connect to server (Normal mode)"
 else
-	echo -e "\e[0m 0) Connect to server [Tunnel mode]"
+	echo -e "\e[0m 0] Connect to server [Tunnel mode]"
 	echo -e " 1] Connect to server [Normal mode]"
 	echo -e " 2] Open your public IP address in server [Firewall]"
 	echo -e " 3] \e[7moption 0 and option 2\e[0m"
